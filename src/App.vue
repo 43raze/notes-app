@@ -1,24 +1,24 @@
 <script>
-import NoteForm from './components/NoteForm.vue'
+import NoteSubmitter from './components/NoteSubmitter.vue'
+import NotesCounter from './components/NotesCounter.vue'
 import NotesList from './components/NotesList.vue'
 
 export default {
-  components: {
-    NoteForm,
-    NotesList,
-  },
+  components: { NoteSubmitter, NotesList, NotesCounter },
 
   data() {
     return {
-      notes: [],
+      notes: [
+        {
+          id: 1,
+          caption: '',
+          isEditable: false,
+        },
+      ],
     }
   },
 
   methods: {
-    // addNote(content) {
-    //   this.notes.push({ content })
-    // },
-
     removeNote(index) {
       this.notes.splice(index, 1)
     },
@@ -33,11 +33,17 @@ export default {
     </div>
 
     <div class="section">
-      <NoteForm @add-note="addNote" />
+      <NoteSubmitter @add-note="notes.push($event)" />
     </div>
 
     <div class="section">
+      <NotesCounter />
       <NotesList :notes="notes" @remove-note="removeNote" />
     </div>
   </main>
 </template>
+
+<!-- 
+MVVM = M V VM = Model Vue ViewModel
+VM 
+-->

@@ -1,17 +1,22 @@
 <script>
 export default {
+  emits: ['add-note'],
+
   data() {
     return {
-      noteContent: '',
+      note: {
+        id: 1,
+        caption: '',
+        isEditable: false,
+      },
     }
   },
 
   methods: {
     addNote() {
-      if (this.noteContent) {
-        this.$emit('add-note', this.noteContent.trim())
-        this.noteContent = ''
-      }
+      if (this.note.caption === '') return
+      this.$emit('add-note', { ...this.note })
+      this.noteContent = ''
     },
   },
 }
@@ -20,10 +25,10 @@ export default {
 <template>
   <div class="note-form">
     <textarea
-      v-model.trim="noteContent"
+      v-model.trim="note.caption"
       rows="4"
       placeholder="Введите вашу заметку..."
-    />
+    ></textarea>
     <button @click="addNote">Добавить заметку</button>
   </div>
 </template>
