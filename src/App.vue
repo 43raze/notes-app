@@ -4,7 +4,7 @@ import NotesCounter from './components/NotesCounter.vue'
 import NotesList from './components/NotesList.vue'
 
 export default {
-  components: { NoteSubmitter, NotesList, NotesCounter }, // NotesCounter
+  components: { NoteSubmitter, NotesList, NotesCounter },
 
   data() {
     return {
