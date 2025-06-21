@@ -4,7 +4,7 @@ import NotesCounter from './components/NotesCounter.vue'
 import NotesList from './components/NotesList.vue'
 
 export default {
-  components: { NoteSubmitter, NotesList, NotesCounter },
+  components: { NoteSubmitter, NotesList }, // NotesCounter
 
   data() {
     return {
@@ -16,12 +16,6 @@ export default {
         },
       ],
     }
-  },
-
-  methods: {
-    removeNote(index) {
-      this.notes.splice(index, 1)
-    },
   },
 }
 </script>
@@ -37,13 +31,9 @@ export default {
     </div>
 
     <div class="section">
-      <NotesCounter />
-      <NotesList :notes="notes" @remove-note="removeNote" />
+      <!-- <NotesCounter :notes="notes" /> -->
+
+      <NotesList v-model="notes" />
     </div>
   </main>
 </template>
-
-<!-- 
-MVVM = M V VM = Model Vue ViewModel
-VM 
--->
