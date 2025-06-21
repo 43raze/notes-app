@@ -4,7 +4,7 @@ import NotesCounter from './components/NotesCounter.vue'
 import NotesList from './components/NotesList.vue'
 
 export default {
-  components: { NoteSubmitter, NotesList }, // NotesCounter
+  components: { NoteSubmitter, NotesList, NotesCounter }, // NotesCounter
 
   data() {
     return {
@@ -16,6 +16,12 @@ export default {
         },
       ],
     }
+  },
+
+  computed: {
+    notesCount() {
+      return this.notes.length
+    },
   },
 }
 </script>
@@ -31,7 +37,7 @@ export default {
     </div>
 
     <div class="section">
-      <!-- <NotesCounter :notes="notes" /> -->
+      <NotesCounter :notes-count="notesCount" />
 
       <NotesList v-model="notes" />
     </div>
