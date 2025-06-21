@@ -6,7 +6,7 @@ export default {
 
   props: ['modelValue'],
 
-  emits: ['remove-note'],
+  emits: ['update:model-value'],
 
   methods: {
     removeNote(note) {
