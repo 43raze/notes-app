@@ -10,9 +10,14 @@ export default {
     return {
       notes: [
         {
-          id: 1,
+          id: 1111,
           caption: '',
           isEditable: false,
+        },
+        {
+          id: 2222,
+          caption: 'foo',
+          isEditable: true,
         },
       ],
     }
@@ -27,6 +32,7 @@ export default {
 </script>
 
 <template>
+  {{ notes }}
   <main class="container">
     <div class="section">
       <h1>Приложение для заметок</h1>

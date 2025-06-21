@@ -2,18 +2,24 @@
 export default {
   props: ['note'],
 
-  emits: ['note-removed'],
+  emits: ['note-removed', 'note-edited'],
 }
 </script>
 
 <template>
   <div class="note-card">
     <div class="note-content">
-      <p>{{ note.caption }}</p>
+      <!-- v-model="note.caption" -->
+      <textarea
+        v-if="note.isEditable"
+        :value="note.caption"
+        @input="$emit('note-edited', { ...note, caption: $event.target.value })"
+      ></textarea>
+      <p v-else>{{ note.caption }}</p>
     </div>
 
     <div class="note-actions">
-      <button @click="$emit('note-removed', note)">Удалить</button>
+      <button @click="$emit('note-removed', { ...note })">Удалить</button>
     </div>
   </div>
 </template>

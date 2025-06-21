@@ -3,6 +3,7 @@ const randId = () => Math.trunc(Math.random() * 0xffffffff).toString(16)
 const initNote = () => ({
   id: randId(),
   caption: '',
+  isEditable: false,
 })
 
 export default {
@@ -10,11 +11,7 @@ export default {
 
   data() {
     return {
-      note: {
-        id: 1,
-        caption: '',
-        isEditable: false,
-      },
+      note: initNote(),
     }
   },
 
@@ -22,7 +19,6 @@ export default {
     addNote() {
       if (this.note.caption === '') return
       this.$emit('add-note', { ...this.note })
-      this.noteContent = ''
       this.note = initNote()
       this.$refs.noteTextarea.focus()
     },

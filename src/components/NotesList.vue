@@ -12,6 +12,9 @@ export default {
     removeNote(note) {
       return this.modelValue.filter(n => n.id !== note.id)
     },
+    switchNote(newNote) {
+      return this.modelValue.map(n => (n.id === newNote.id ? newNote : n))
+    },
   },
 }
 </script>
@@ -23,6 +26,7 @@ export default {
       :key="note.id"
       :note="note"
       @note-removed="$emit('update:model-value', removeNote($event))"
+      @note-edited="switchNote($event)"
     />
   </div>
 </template>
