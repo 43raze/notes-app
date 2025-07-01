@@ -26,7 +26,7 @@ export default {
       :key="note.id"
       :note="note"
       @note-removed="$emit('update:model-value', removeNote($event))"
-      @note-edited="switchNote($event)"
+      @note-edited="$emit('update:model-value', switchNote($event))"
     />
   </div>
 </template>

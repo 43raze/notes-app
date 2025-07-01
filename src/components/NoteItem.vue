@@ -15,7 +15,9 @@ export default {
         :value="note.caption"
         @input="$emit('note-edited', { ...note, caption: $event.target.value })"
       ></textarea>
-      <p v-else>{{ note.caption }}</p>
+      <p v-else @dblclick="$emit('note-edited', { ...note, isEditable: true })">
+        {{ note.caption }}
+      </p>
     </div>
 
     <div class="note-actions">
