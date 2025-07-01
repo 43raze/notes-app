@@ -11,13 +11,13 @@ export default {
       notes: [
         {
           id: 1111,
-          caption: '',
+          caption: 'bar',
           isEditable: false,
         },
         {
           id: 2222,
           caption: 'foo',
-          isEditable: true,
+          isEditable: false,
         },
       ],
     }
