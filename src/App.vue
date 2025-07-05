@@ -32,7 +32,6 @@ export default {
 </script>
 
 <template>
-  {{ notes }}
   <main class="container">
     <div class="section">
       <h1>Приложение для заметок</h1>
