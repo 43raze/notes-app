@@ -13,28 +13,32 @@ export default {
   watch: {
     note: {
       deep: true,
-      handler(newNote) {
+      handler(newNote, oldNote) {
+        // console.log(newNote === oldNote)
         this.localNote = { ...newNote }
+        // this.$emit('note-edited', { ...this.localNote })
       },
     },
-  },
-
-  methods: {
-    updateCaption(event) {
-      this.localNote.caption = event.target.value
-      this.$emit('note-edited', { ...this.localNote })
+    localNote: {
+      deep: true,
+      handler(newNote, oldNote) {
+        console.log(newNote === oldNote)
+        // this.localNote = { ...newNote }
+        // this.$emit('note-edited', { ...this.localNote })
+      },
     },
   },
 }
 </script>
 
 <template>
+  <!-- {{ localNote }} -->
   <div class="note-card">
     <div class="note-content">
       <textarea
         v-if="localNote.isEditable"
         :value="localNote.caption"
-        @input="updateCaption($event)"
+        @input="localNote.caption = $event.target.value"
         @blur="localNote.isEditable = false"
       ></textarea>
       <p v-else @dblclick="localNote.isEditable = true">
@@ -43,6 +47,11 @@ export default {
     </div>
 
     <div class="note-actions">
+      <button
+        @click="localNote = { id: 111, caption: 'sss', isEditable: false }"
+      >
+        CHANGE IT
+      </button>
       <button @click="$emit('note-removed', { ...localNote })">Удалить</button>
     </div>
   </div>

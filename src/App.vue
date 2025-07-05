@@ -32,6 +32,7 @@ export default {
 </script>
 
 <template>
+  {{ notes }}
   <main class="container">
     <div class="section">
       <h1>Приложение для заметок</h1>
@@ -43,6 +44,10 @@ export default {
 
     <div class="section">
       <NotesCounter :notes-count="notesCount" />
+
+      <NotesList v-model="notes" />
+
+      <hr />
 
       <NotesList v-model="notes" />
     </div>
