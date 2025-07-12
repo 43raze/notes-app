@@ -47,9 +47,9 @@ export default {
 
       <NotesList v-model="notes" />
 
-      <hr />
+      <!-- <hr />
 
-      <NotesList v-model="notes" />
+      <NotesList v-model="notes" /> -->
     </div>
   </main>
 </template>

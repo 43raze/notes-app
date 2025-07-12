@@ -22,9 +22,9 @@ export default {
     localNote: {
       deep: true,
       handler(newNote, oldNote) {
-        console.log(newNote === oldNote)
-        // this.localNote = { ...newNote }
-        // this.$emit('note-edited', { ...this.localNote })
+        if (newNote !== oldNote) return
+        this.$emit('note-edited', { ...newNote })
+        // console.log(newNote === oldNote) todo delete after review
       },
     },
   },
@@ -47,11 +47,11 @@ export default {
     </div>
 
     <div class="note-actions">
-      <button
+      <!-- <button
         @click="localNote = { id: 111, caption: 'sss', isEditable: false }"
       >
         CHANGE IT
-      </button>
+      </button> -->
       <button @click="$emit('note-removed', { ...localNote })">Удалить</button>
     </div>
   </div>
