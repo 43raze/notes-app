@@ -28,6 +28,12 @@ export default {
       },
     },
   },
+
+  methods: {
+    ff() {
+      console.log('>', document.querySelector('.ff'))
+    },
+  },
 }
 </script>
 
@@ -36,12 +42,13 @@ export default {
   <div class="note-card">
     <div class="note-content">
       <textarea
+        class="ff"
         v-if="localNote.isEditable"
         :value="localNote.caption"
         @input="localNote.caption = $event.target.value"
         @blur="localNote.isEditable = false"
       ></textarea>
-      <p v-else @dblclick="localNote.isEditable = true">
+      <p v-else @dblclick=";(localNote.isEditable = true), ff()">
         {{ localNote.caption }}
       </p>
     </div>
