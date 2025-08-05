@@ -12,6 +12,13 @@ function ff() {
   console.log('>', docQuSel())
 }
 
-dblclk()
+setTimeout(() => {
+  dblclk()
+}, 1000)
 
 ff()
+
+// console.log()
+// docQuSel()
+// ff()
+// CALLSTACK

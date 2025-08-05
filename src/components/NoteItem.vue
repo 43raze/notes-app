@@ -31,7 +31,15 @@ export default {
 
   methods: {
     ff() {
-      console.log('>', document.querySelector('.ff'))
+      // setTimeout(() => {}, 0)
+
+      requestAnimationFrame(() => {
+        console.log('>>', document.querySelector('.ff'))
+      })
+
+      this.$nextTick(() => {
+        console.log('>', document.querySelector('.ff'))
+      })
     },
   },
 }
