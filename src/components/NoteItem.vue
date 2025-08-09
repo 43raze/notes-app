@@ -30,15 +30,10 @@ export default {
   },
 
   methods: {
-    ff() {
-      // setTimeout(() => {}, 0)
-
-      requestAnimationFrame(() => {
-        console.log('>>', document.querySelector('.ff'))
-      })
-
+    handleEdit() {
+      this.localNote.isEditable = true
       this.$nextTick(() => {
-        console.log('>', document.querySelector('.ff'))
+        this.$refs.elTextarea.focus()
       })
     },
   },
@@ -50,13 +45,13 @@ export default {
   <div class="note-card">
     <div class="note-content">
       <textarea
-        class="ff"
         v-if="localNote.isEditable"
+        ref="elTextarea"
         :value="localNote.caption"
         @input="localNote.caption = $event.target.value"
         @blur="localNote.isEditable = false"
       ></textarea>
-      <p v-else @dblclick=";(localNote.isEditable = true), ff()">
+      <p v-else @dblclick="handleEdit()">
         {{ localNote.caption }}
       </p>
     </div>
