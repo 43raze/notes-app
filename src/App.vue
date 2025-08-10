@@ -8,18 +8,7 @@ export default {
 
   data() {
     return {
-      notes: [
-        {
-          id: 1111,
-          caption: 'bar',
-          isEditable: false,
-        },
-        {
-          id: 2222,
-          caption: 'foo',
-          isEditable: false,
-        },
-      ],
+      notes: [],
     }
   },
 
@@ -46,10 +35,6 @@ export default {
       <NotesCounter :notes-count="notesCount" />
 
       <NotesList v-model="notes" />
-
-      <!-- <hr />
-
-      <NotesList v-model="notes" /> -->
     </div>
   </main>
 </template>
