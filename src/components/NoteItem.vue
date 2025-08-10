@@ -7,36 +7,32 @@ export default {
   data() {
     return {
       localNote: { ...this.note },
-      localOldCaption: '',
     }
   },
 
   watch: {
     note: {
       deep: true,
-      handler(newNote) {
+      handler(newNote, oldNote) {
         this.localNote = { ...newNote }
+      },
+    },
+
+    localNote: {
+      deep: true,
+      handler(newNote, oldNote) {
+        if (newNote !== oldNote) return
+        this.$emit('note-edited', { ...newNote })
       },
     },
   },
 
   methods: {
     handleEdit() {
-      this.localOldCaption = this.localNote.caption
       this.localNote.isEditable = true
       this.$nextTick(() => {
         this.$refs.elTextarea.focus()
       })
-    },
-
-    handleBlur() {
-      this.localNote.isEditable = false
-      const trimmed = this.localNote.caption.trim()
-      if (trimmed === '') {
-        this.localNote.caption = this.localOldCaption
-      } else {
-        this.$emit('note-edited', { ...this.localNote })
-      }
     },
   },
 }
@@ -50,7 +46,7 @@ export default {
         ref="elTextarea"
         :value="localNote.caption"
         @input="localNote.caption = $event.target.value"
-        @blur="handleBlur"
+        @blur="localNote.isEditable = false"
       ></textarea>
 
       <p v-else @dblclick="handleEdit()">
