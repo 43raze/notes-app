@@ -7,7 +7,6 @@ export default {
   data() {
     return {
       localNote: { ...this.note },
-      backupNote: null,
     }
   },
 
@@ -18,43 +17,28 @@ export default {
         this.localNote = { ...newNote }
       },
     },
-
-    localNote: {
-      deep: true,
-      handler(newNote, oldNote) {
-        if (newNote.caption.trim() === '') {
-          this.localNote.isEditable = true
-          this.$nextTick(() => {
-            this.$refs.elTextarea.focus()
-          })
-          return
-        }
-
-        if (newNote !== oldNote) return
-
-        this.$emit('note-edited', { ...newNote })
-      },
-    },
   },
 
   methods: {
     handleEdit() {
-      this.backupNote = { ...this.localNote }
       this.localNote.isEditable = true
       this.$nextTick(() => {
         this.$refs.elTextarea.focus()
       })
+      this.$emit('note-edited', { ...this.localNote })
     },
 
     confirmEdit() {
       if (this.localNote.caption.trim() === '') return
       this.localNote.isEditable = false
       this.$emit('note-edited', { ...this.localNote })
+      this.localNote = { ...this.note }
     },
 
     cancelEdit() {
-      this.localNote = { ...this.backupNote }
       this.localNote.isEditable = false
+      this.$emit('note-edited', { ...this.localNote })
+      this.localNote = { ...this.note }
     },
   },
 }

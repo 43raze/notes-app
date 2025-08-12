@@ -12,8 +12,16 @@ export default {
     removeNote(note) {
       return this.modelValue.filter(n => n.id !== note.id)
     },
-    switchNote(newNote) {
-      return this.modelValue.map(n => (n.id === newNote.id ? newNote : n))
+    switchNote(note) {
+      if (
+        !note.isEditable &&
+        this.modelValue.some(
+          n => n.caption === note.caption && n.id !== note.id
+        )
+      ) {
+        return this.modelValue
+      }
+      return this.modelValue.map(n => (n.id === note.id ? note : n))
     },
   },
 }

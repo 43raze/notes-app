@@ -17,6 +17,14 @@ export default {
       return this.notes.length
     },
   },
+
+  // watch: {
+  //   notes(val, oldVal) {
+  //     if (val.length === oldVal.length) return
+  //     const isIncludes = oldVal.some(ov => ov.caption === val.at(-1).caption)
+  //     if (isIncludes) val.pop()
+  //   },
+  // },
 }
 </script>
 
@@ -28,7 +36,11 @@ export default {
     </div>
 
     <div class="section">
-      <NoteSubmitter @add-note="notes.push($event)" />
+      <NoteSubmitter
+        @submit-note="
+          notes.some(n => n.caption === $event.caption) || notes.push($event)
+        "
+      />
     </div>
 
     <div class="section">

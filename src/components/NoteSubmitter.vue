@@ -7,7 +7,7 @@ const initNote = () => ({
 })
 
 export default {
-  emits: ['add-note'],
+  emits: ['submit-note'],
 
   data() {
     return {
@@ -16,18 +16,11 @@ export default {
   },
 
   methods: {
-    addNote() {
+    submitNote() {
       if (this.note.caption === '') return
-      this.$emit('add-note', { ...this.note })
+      this.$emit('submit-note', { ...this.note })
       this.note = initNote()
       this.$refs.noteTextarea.focus()
-    },
-
-    handleKeyDown(e) {
-      if (e.ctrlKey && e.key === 'Enter') {
-        e.preventDefault()
-        this.addNote()
-      }
     },
   },
 }
@@ -40,9 +33,9 @@ export default {
       v-model.trim="note.caption"
       rows="4"
       placeholder="Введите вашу заметку..."
-      @keydown="handleKeyDown"
+      @keypress.prevent.ctrl.enter="submitNote"
     ></textarea>
 
-    <button @click="addNote">Добавить заметку</button>
+    <button @click="submitNote">Добавить заметку</button>
   </div>
 </template>
