@@ -22,6 +22,13 @@ export default {
       this.note = initNote()
       this.$refs.noteTextarea.focus()
     },
+
+    handleKeyDown(e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault()
+        this.addNote()
+      }
+    },
   },
 }
 </script>
@@ -33,6 +40,7 @@ export default {
       v-model.trim="note.caption"
       rows="4"
       placeholder="Введите вашу заметку..."
+      @keydown="handleKeyDown"
     ></textarea>
 
     <button @click="addNote">Добавить заметку</button>

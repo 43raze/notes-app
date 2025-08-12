@@ -74,6 +74,7 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   position: relative;
+  word-wrap: break-word;
 }
 .note-card p {
   margin: 0;
@@ -83,7 +84,9 @@ h1 {
   margin-bottom: 10px;
 }
 .note-card .note-actions {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 .note-card button {
   background-color: #ff4d4d;
@@ -95,4 +98,17 @@ h1 {
 }
 .note-card button:hover {
   background-color: #cc0000;
+}
+button.note-card-acept {
+  background-color: green;
+  margin-right: auto;
+}
+button.note-card-cancel {
+  background-color: orange;
+}
+button.note-card-acept:hover {
+  background-color: greenyellow;
+}
+button.note-card-cancel:hover {
+  background-color: orangered;
 }

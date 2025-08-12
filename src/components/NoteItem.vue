@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       localNote: { ...this.note },
+      backupNote: null,
     }
   },
 
@@ -21,7 +22,16 @@ export default {
     localNote: {
       deep: true,
       handler(newNote, oldNote) {
+        if (newNote.caption.trim() === '') {
+          this.localNote.isEditable = true
+          this.$nextTick(() => {
+            this.$refs.elTextarea.focus()
+          })
+          return
+        }
+
         if (newNote !== oldNote) return
+
         this.$emit('note-edited', { ...newNote })
       },
     },
@@ -29,10 +39,22 @@ export default {
 
   methods: {
     handleEdit() {
+      this.backupNote = { ...this.localNote }
       this.localNote.isEditable = true
       this.$nextTick(() => {
         this.$refs.elTextarea.focus()
       })
+    },
+
+    confirmEdit() {
+      if (this.localNote.caption.trim() === '') return
+      this.localNote.isEditable = false
+      this.$emit('note-edited', { ...this.localNote })
+    },
+
+    cancelEdit() {
+      this.localNote = { ...this.backupNote }
+      this.localNote.isEditable = false
     },
   },
 }
@@ -46,16 +68,27 @@ export default {
         ref="elTextarea"
         :value="localNote.caption"
         @input="localNote.caption = $event.target.value"
-        @blur="localNote.isEditable = false"
+        @blur=""
       ></textarea>
 
-      <p v-else @dblclick="handleEdit()">
+      <p v-else @dblclick="handleEdit">
         {{ localNote.caption }}
       </p>
     </div>
 
     <div class="note-actions">
-      <button @click="$emit('note-removed', { ...localNote })">Удалить</button>
+      <template v-if="localNote.isEditable">
+        <button class="note-card-acept" @click="confirmEdit">
+          Подтвердить
+        </button>
+        <button class="note-card-cancel" @click="cancelEdit">Отмена</button>
+      </template>
+
+      <template v-else>
+        <button @click="$emit('note-removed', { ...localNote })">
+          Удалить
+        </button>
+      </template>
     </div>
   </div>
 </template>
